@@ -1,21 +1,3 @@
-task hello {
-     doLast {
-	     println("Hello from root")
-	 }
-}
-
-buildscript {
-	repositories {
-	     jcenter()
-	}
-	
-	dependencies {
-	     classpath 'org.akhikhl.gretty:gretty:+'
-	}
-}
-
-apply plugin: 'org.akhikhl.gretty'
-
 ext.projectIds = [
 	'group': 'com.manning.gia',
 	'version': 0.1
@@ -34,37 +16,3 @@ subprojects{
 }
 
 
-project(':repository'){
-	
-	dependencies{
-		compile project(':model')
-	}
-
-	
-}
-
-project(':web'){
-	
-	apply plugin: 'war'
-	apply plugin: 'org.akhikhl.gretty'
-	
-	repositories{
-		jcenter()
-		mavenCentral()
-	}
-	
-	dependencies {
-		providedCompile 'javax.servlet:servlet-api:2.5',
-						'javax.servlet.jsp:jsp-api:2.1'
-		
-		runtime 'javax.servlet:jstl:1.1.2',
-				'taglibs:standard:1.1.2'
-				
-		compile project(':repository')
-	}
-	
-
-}
-
-	
-	
