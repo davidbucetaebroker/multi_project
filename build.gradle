@@ -33,27 +33,11 @@ subprojects{
 	apply plugin: 'java'
 }
 
-project(':model'){
-	
-	task hello (dependsOn: ":repository:hello" ) {
-	 
-     doLast {
-	     println("Hello from :model")
-	 }
-}
-
-	
-}
 
 project(':repository'){
 	
 	dependencies{
 		compile project(':model')
-	}
-	task hello {
-		 doLast {
-			 println("Hello from :repository")
-		 }
 	}
 
 	
@@ -79,12 +63,8 @@ project(':web'){
 		compile project(':repository')
 	}
 	
-	task hello {
-	 doLast {
-		 println("Hello from :web")
-	 }
+
 }
 
 	
 	
-}
