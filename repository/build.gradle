@@ -1,3 +1,16 @@
+repositories {
+    mavenCentral()
+
+}
+
 dependencies{
 	compile project(':model')
+	
+	testCompile "junit:junit:4.11"
+}
+
+test{
+	jvmArgs "-Xms128m"
+	
+	systemProperty "items", "20"
 }
