@@ -1,0 +1,90 @@
+task hello {
+     doLast {
+	     println("Hello from root")
+	 }
+}
+
+buildscript {
+	repositories {
+	     jcenter()
+	}
+	
+	dependencies {
+	     classpath 'org.akhikhl.gretty:gretty:+'
+	}
+}
+
+apply plugin: 'org.akhikhl.gretty'
+
+ext.projectIds = [
+	'group': 'com.manning.gia',
+	'version': 0.1
+]
+
+//group = projectIds.group
+//version = projectIds.version
+
+allprojects{
+	group = projectIds.group
+	version = projectIds.version
+}
+
+subprojects{
+	apply plugin: 'java'
+}
+
+project(':model'){
+	
+	task hello (dependsOn: ":repository:hello" ) {
+	 
+     doLast {
+	     println("Hello from :model")
+	 }
+}
+
+	
+}
+
+project(':repository'){
+	
+	dependencies{
+		compile project(':model')
+	}
+	task hello {
+		 doLast {
+			 println("Hello from :repository")
+		 }
+	}
+
+	
+}
+
+project(':web'){
+	
+	apply plugin: 'war'
+	apply plugin: 'org.akhikhl.gretty'
+	
+	repositories{
+		jcenter()
+		mavenCentral()
+	}
+	
+	dependencies {
+		providedCompile 'javax.servlet:servlet-api:2.5',
+						'javax.servlet.jsp:jsp-api:2.1'
+		
+		runtime 'javax.servlet:jstl:1.1.2',
+				'taglibs:standard:1.1.2'
+				
+		compile project(':repository')
+	}
+	
+	task hello {
+	 doLast {
+		 println("Hello from :web")
+	 }
+}
+
+	
+	
+}
