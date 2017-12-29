@@ -1,0 +1,5 @@
+.gradle/
+model/build/
+build/
+src/.gradle/
+src/test/
